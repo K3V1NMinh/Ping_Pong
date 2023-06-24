@@ -106,7 +106,7 @@ while running:
     win.blit(text2, (WIDTH - 150, 50))
 
     if winner:
-        font = font1.Font(None, 36)
+        font1 = font.Font(None, 36)
         text = font1.render("{} wins!".format(winner), True, WHITE)
         win.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2))
         display.flip()
