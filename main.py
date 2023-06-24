@@ -1,21 +1,21 @@
-import pygame
+from pygame import *
 import random
 
 # Initialize Pygame
-pygame.init()
+init()
 
 # Set up the game window
 WIDTH = 800
 HEIGHT = 400
-win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Ping Pong")
+win = display.set_mode((WIDTH, HEIGHT))
+display.set_caption("Ping Pong")
 
 # Define colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 # Set up the game clock
-clock = pygame.time.Clock()
+clock = time.Clock()
 
 # Define the paddle dimensions
 PADDLE_WIDTH = 10
@@ -49,14 +49,14 @@ def update():
     global paddle1_pos, paddle2_pos, ball_pos, ball_vel, score1, score2
 
     # Update paddle position
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w] and paddle1_pos > 0:
+    keys = key.get_pressed()
+    if keys[K_w] and paddle1_pos > 0:
         paddle1_pos -= paddle_speed
-    if keys[pygame.K_s] and paddle1_pos < HEIGHT - PADDLE_HEIGHT:
+    if keys[K_s] and paddle1_pos < HEIGHT - PADDLE_HEIGHT:
         paddle1_pos += paddle_speed
-    if keys[pygame.K_UP] and paddle2_pos > 0:
+    if keys[K_UP] and paddle2_pos > 0:
         paddle2_pos -= paddle_speed
-    if keys[pygame.K_DOWN] and paddle2_pos < HEIGHT - PADDLE_HEIGHT:
+    if keys[K_DOWN] and paddle2_pos < HEIGHT - PADDLE_HEIGHT:
         paddle2_pos += paddle_speed
 
     # Update ball position
@@ -92,8 +92,8 @@ running = True
 winner = None
 while running:
     # Handle events
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for event in event.get():
+        if event.type == QUIT:
             running = False
 
     # Update the game state
@@ -101,12 +101,12 @@ while running:
 
     # Render the game
     win.fill(BLACK)
-    pygame.draw.rect(win, WHITE, (PADDLE_WIDTH, paddle1_pos, PADDLE_WIDTH, PADDLE_HEIGHT))
-    pygame.draw.rect(win, WHITE, (WIDTH - 2 * PADDLE_WIDTH, paddle2_pos, PADDLE_WIDTH, PADDLE_HEIGHT))
-    pygame.draw.circle(win, WHITE, ball_pos, BALL_RADIUS)
+    draw.rect(win, WHITE, (PADDLE_WIDTH, paddle1_pos, PADDLE_WIDTH, PADDLE_HEIGHT))
+    draw.rect(win, WHITE, (WIDTH - 2 * PADDLE_WIDTH, paddle2_pos, PADDLE_WIDTH, PADDLE_HEIGHT))
+    draw.circle(win, WHITE, ball_pos, BALL_RADIUS)
 
     # Display scores
-    font = pygame.font.Font(None, 36)
+    font = font.Font(None, 36)
     text1 = font.render("Player 1: {}".format(score1), True, WHITE)
     text2 = font.render("Player 2: {}".format(score2), True, WHITE)
     win.blit(text1, (50, 50))
@@ -114,15 +114,15 @@ while running:
 
     # Check for game over
     if winner:
-        font = pygame.font.Font(None, 36)
-        text = font.render("Player {} wins!".format(winner), True, WHITE)
+        font = font.Font(None, 36)
+        text = font.render("{} wins!".format(winner), True, WHITE)
         win.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2))
-        pygame.display.flip()
-        pygame.time.wait(3000)
+        display.flip()
+        time.wait(3000)
         running = False
 
-    pygame.display.flip()
+    display.flip()
     clock.tick(60)
 
 # Quit the game
-pygame.quit()
+quit()
