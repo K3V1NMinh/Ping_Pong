@@ -24,17 +24,14 @@ PADDLE_HEIGHT = 60
 # Define the ball dimensions
 BALL_RADIUS = 10
 
-# Define the initial positions and velocities of the paddle and ball
 paddle1_pos = (HEIGHT - PADDLE_HEIGHT) // 2
 paddle2_pos = (HEIGHT - PADDLE_HEIGHT) // 2
 ball_pos = [WIDTH // 2, HEIGHT // 2]
 ball_vel = [random.choice([-1, 1]), random.choice([-1, 1])]
 
-# Define the paddle and ball speeds
 paddle_speed = 5
 ball_speed = 5
 
-# Define initial scores
 score1 = 0
 score2 = 0
 
@@ -91,31 +88,26 @@ def update():
 running = True
 winner = None
 while running:
-    # Handle events
-    for event in event.get():
-        if event.type == QUIT:
+    for e in event.get():
+        if e.type == QUIT:
             running = False
 
-    # Update the game state
     winner = update()
 
-    # Render the game
     win.fill(BLACK)
     draw.rect(win, WHITE, (PADDLE_WIDTH, paddle1_pos, PADDLE_WIDTH, PADDLE_HEIGHT))
     draw.rect(win, WHITE, (WIDTH - 2 * PADDLE_WIDTH, paddle2_pos, PADDLE_WIDTH, PADDLE_HEIGHT))
     draw.circle(win, WHITE, ball_pos, BALL_RADIUS)
 
-    # Display scores
-    font = font.Font(None, 36)
-    text1 = font.render("Player 1: {}".format(score1), True, WHITE)
-    text2 = font.render("Player 2: {}".format(score2), True, WHITE)
+    font1 = font.Font(None, 36)
+    text1 = font1.render("Player 1: {}".format(score1), True, WHITE)
+    text2 = font1.render("Player 2: {}".format(score2), True, WHITE)
     win.blit(text1, (50, 50))
     win.blit(text2, (WIDTH - 150, 50))
 
-    # Check for game over
     if winner:
-        font = font.Font(None, 36)
-        text = font.render("{} wins!".format(winner), True, WHITE)
+        font = font1.Font(None, 36)
+        text = font1.render("{} wins!".format(winner), True, WHITE)
         win.blit(text, (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2))
         display.flip()
         time.wait(3000)
@@ -124,5 +116,4 @@ while running:
     display.flip()
     clock.tick(60)
 
-# Quit the game
 quit()
